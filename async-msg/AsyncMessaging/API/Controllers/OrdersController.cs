@@ -76,14 +76,10 @@ namespace API.Controllers
         {
             // Transform
             var orderToAdd = mapper.Map<Order>(model);
-
-            //check stock
-          //  var stock = await productStockService.GetStock(model.OrderItems.Select(x => x.ProductId).ToList());
-            //save & Move on
             var sendEndpoint = await sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-command"));
             await sendEndpoint.Send(model);
-            var createdOrder = await orderService.AddOrderAsync(orderToAdd);
-            return CreatedAtAction("GetOrder", new { id = createdOrder.Id }, createdOrder);
+            //var createdOrder = await orderService.AddOrderAsync(orderToAdd);
+            return Accepted();
         }
 
     }

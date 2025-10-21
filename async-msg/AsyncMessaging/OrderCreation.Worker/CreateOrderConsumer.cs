@@ -24,7 +24,7 @@ namespace OrderCreation
         public async Task Consume(ConsumeContext<OrderModel> context)
         {
             
-            Console.WriteLine($"OrderCreationWorker. Got a command to create an order:{context.Message.DeliveryInstructions}");
+            Console.WriteLine($"OrderCreationWorker. Got a command to create an order:{context.Message.Name}");
             //mapping from Message to an order object
             var orderToAdd = mapper.Map<Order>(context.Message);
 
